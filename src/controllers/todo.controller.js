@@ -23,8 +23,10 @@ exports.getTodos = async (req, res, next) => {
 // ============================================================
 exports.getTodoById = async (req, res, next) => {
   try {
+    const id = req.params.id;
+    const todo = await todoService.getTodoById(id);
+    res.status(200).json({ success: true, data: todo });
     // TODO: req.params.id를 꺼내 todoService를 호출하고, 200으로 응답하세요.
-    throw notImplemented();
   } catch (err) {
     next(err);
   }
@@ -35,8 +37,11 @@ exports.getTodoById = async (req, res, next) => {
 // ============================================================
 exports.createTodo = async (req, res, next) => {
   try {
+    const title = req.body.title;
+    const description = req.body.description;
+    const todo = await todoService.createTodo({title, description});
+    res.status(201).json({ success: true, data: todo });
     // TODO: req.body에서 title, description을 꺼내 todoService를 호출하고, 201로 응답하세요.
-    throw notImplemented();
   } catch (err) {
     next(err);
   }
@@ -47,8 +52,11 @@ exports.createTodo = async (req, res, next) => {
 // ============================================================
 exports.updateTodo = async (req, res, next) => {
   try {
+    const id = req.params.id;
+    const fields = req.body;
+    const todo = await todoService.updateTodo(id, fields);
+    res.status(200).json({ success: true, data: todo });
     // TODO: req.params.id와 req.body를 이용해 todoService를 호출하고, 200으로 응답하세요.
-    throw notImplemented();
   } catch (err) {
     next(err);
   }
@@ -59,8 +67,10 @@ exports.updateTodo = async (req, res, next) => {
 // ============================================================
 exports.deleteTodo = async (req, res, next) => {
   try {
+    const id = req.params.id;
+    await todoService.deleteTodo(id);
     // TODO: req.params.id로 todoService를 호출하고, 204로 응답하세요.
-    throw notImplemented();
+    res.status(204).send();
   } catch (err) {
     next(err);
   }
